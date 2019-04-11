@@ -25,9 +25,7 @@
   
   
   
-<link rel="stylesheet" href = "assets/wowslider-init/easy/style.css"></link> 
-  <link rel="stylesheet" href="assets/dan/css/mystylec.css" type="text/css"> 
-</head>
+<link rel="stylesheet" href = "assets/wowslider-init/easy/style.css"></link></head>
 <body>
   <section class="menu cid-qUu0EjlHtI" once="menu" id="menu2-2g">
 
@@ -256,7 +254,7 @@
   <script src="assets/dropdown/js/script.min.js"></script>
   <script src="assets/vimeoplayer/jquery.mb.vimeo_player.js"></script>
   <script src="assets/sociallikes/social-likes.js"></script>
-  <script src="assets/theme/js/scriptnew.js"></script>
+  <script src="assets/theme/js/script.js"></script>
   <script src="assets/wowslider-effect/effects.js"></script>
   <script src="assets/slidervideo/script.js"></script>
   <script src="assets/gallery/player.min.js"></script>
@@ -264,6 +262,5 @@
   <script src="assets/wowslider-init/script.js"></script>
   
   
-  <script src="assets/dan/js/myscriptc.js"></script> 
 </body>
 </html>
