@@ -716,12 +716,13 @@
                 $(item).parents('section').find($(item).attr('data-modal'))
                     .css('display', 'table')
                     .click(function() {
+
                         if (videoIframeSrc.indexOf('youtu') !== -1) {
                             videoIframe.contentWindow.postMessage('{"event":"command","func":"pauseVideo","args":""}', '*');
-                        }
-
-                        if (videoIframeSrc.indexOf('vimeo') !== -1) {
+                        } else if (videoIframeSrc.indexOf('vimeo') !== -1) {
                             vimeoPlayer.pause();
+                        } else {  // Stop custom video files from playing in the background
+                            $(videoIframe).attr('src', '')
                         }
 
                         $(this).css('display', 'none').off('click');
@@ -729,20 +730,37 @@
                     });
             };
 
+	    // DWR Original location at doc ready but caused iframe to play immediately.
             // Youtube & Vimeo
-            $('.modalWindow-video iframe').each(function() {
-                var videoURL = $(this).attr('data-src');
-                $(this).removeAttr('data-src');
+            //$('.modalWindow-video iframe').each(function() {
+            //    var videoURL = $(this).attr('data-src');
+            //    $(this).removeAttr('data-src');
 
-                var parsedUrl = videoURL.match(/(http:\/\/|https:\/\/|)?(player.|www.)?(vimeo\.com|youtu(be\.com|\.be|be\.googleapis\.com))\/(video\/|embed\/|watch\?v=|v\/)?([A-Za-z0-9._%-]*)(&\S+)?/);
-                if (videoURL.indexOf('youtu') !== -1) {
-                    $(this).attr('src', 'https://youtube.com/embed/' + parsedUrl[6] + '?rel=0&enablejsapi=1');
-                } else if (videoURL.indexOf('vimeo') !== -1) {
-                    $(this).attr('src', 'https://player.vimeo.com/video/' + parsedUrl[6] + '?autoplay=0&loop=0');
-                }
-            });
+            //   var parsedUrl = videoURL.match(/(http:\/\/|https:\/\/|)?(player.|www.)?(vimeo\.com|youtu(be\.com|\.be|be\.googleapis\.com))\/(video\/|embed\/|watch\?v=|v\/)?([A-Za-z0-9._%-]*)(&\S+)?/);
+            //    if (videoURL.indexOf('youtu') !== -1) {
+            //      $(this).attr('src', 'https://youtube.com/embed/' + parsedUrl[6] + '?rel=0&enablejsapi=1');
+            //  } else if (videoURL.indexOf('vimeo') !== -1) {
+            //      $(this).attr('src', 'https://player.vimeo.com/video/' + parsedUrl[6] + '?autoplay=0&loop=0');
+            //  }
+            //});
 
             $('[data-modal]').click(function() {
+	    // DWR Set the iframe src only if the modal is pressed, not at first render
+                $('.modalWindow-video iframe').each(function() {
+                    var videoURL = $(this).attr('data-src');
+                    //$(this).removeAttr('data-src');
+
+                    var parsedUrl = videoURL.match(/(http:\/\/|https:\/\/|)?(player.|www.)?(vimeo\.com|youtu(be\.com|\.be|be\.googleapis\.com))\/(video\/|embed\/|watch\?v=|v\/)?([A-Za-z0-9._%-]*)(&\S+)?/);
+                    if (videoURL.indexOf('youtu') !== -1) {
+                        $(this).attr('src', 'https://youtube.com/embed/' + parsedUrl[6] + '?rel=0&enablejsapi=1');
+                    } else if (videoURL.indexOf('vimeo') !== -1) {
+                        $(this).attr('src', 'https://player.vimeo.com/video/' + parsedUrl[6] + '?autoplay=0&loop=0');
+                    } else if ($.isMobile()) {
+                        $(this).attr('src', '/videomobile.html');
+                    } else {  //Just use the HD url as is
+                        $(this).attr('src', videoURL);
+                    }
+                });
                 modal($(this));
             });
         }

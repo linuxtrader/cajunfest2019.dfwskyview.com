@@ -22,8 +22,8 @@ sed -e '/<\/head>/i \
     \ \ <script src="assets\/dan\/js\/myscriptc.js"><\/script> \
 '   new.html > index.html
 
-echo; echo showing: diff index.html.orig index.html
-diff index.html.orig index.html
+#echo; echo showing: diff index.html.orig index.html
+#diff index.html.orig index.html
 
 echo; echo
 ls -l videomobile.html

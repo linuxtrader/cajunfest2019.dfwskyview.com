@@ -14,9 +14,7 @@ cd $html
 echo Syncing Standard content to $subdomain
 eval aws s3 sync ${html} s3://${subdomain} ${excludes}
 
-
-echo SKIP Syncing media to $subdomain
-#aws s3 sync ${media} s3://${subdomain}/media/ ${excludes}
-
+echo Syncing media to $subdomain
+eval aws s3 sync ${media} s3://${subdomain}/media/ ${excludes}
 
 echo Maybe run ./invalidate after review on netlify.
